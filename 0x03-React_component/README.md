@@ -1,1 +1,2 @@
-react_component
+# alx-react
+Introduction to react-component

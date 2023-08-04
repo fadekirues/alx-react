@@ -1,89 +1,78 @@
-import React from "react";
-import Adapter from "enzyme-adapter-react-16";
-import { shallow, configure } from "enzyme";
-configure({ adapter: new Adapter() });
+import React from 'react';
+import { shallow } from 'enzyme';
+import App from './App';
+import Notifications from '../Notifications/Notifications';
+import Header from '../Header/Header';
+import Login from '../Login/Login';
+import Footer from '../Footer/Footer';
+import CourseList from '../CourseList/CourseList';
 
-import App from "./App";
-import Notifications from "../Notifications/Notifications";
-import Footer from "../Footer/Footer";
-import Login from "../Login/Login";
-import Header from "../Header/Header";
-import CourseList from "../CourseList/CourseList";
-test("App renders without crashing", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.exists()).toBe(true);
-});
-
-test("App renders a header with the class App-header", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find("header.App-header").exists()).toBe(true);
-});
-
-test("App renders a div with the class App-body", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find("div.App-body").exists()).toBe(true);
-});
-
-test("App renders a div with the class App-footer", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find("div.App-footer").exists()).toBe(true);
-});
-
-test("App renders the Notifications component", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find(Notifications).exists()).toBe(true);
-});
-
-test("App renders the Header component", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find(Header).exists()).toBe(true);
-});
-
-test("App renders the Login component", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find(Login).exists()).toBe(true);
-});
-
-test("App renders the Footer component", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find(Footer).exists()).toBe(true);
-});
-// Add a test to check that CourseList is not displayed by default (isLoggedIn is false)
-test("App does not render the CourseList component by default", () => {
-  const wrapper = shallow(<App />);
-  expect(wrapper.find(CourseList).exists()).toBe(false);
-});
-
-// Describe a new case when isLoggedIn is true
-describe("App when isLoggedIn is true", () => {
-  // Add a test to verify that the Login component is not included
-  test("App does not render the Login component when isLoggedIn is true", () => {
-    const wrapper = shallow(<App isLoggedIn={true} />);
-    expect(wrapper.find(Login).exists()).toBe(false);
+describe('<App />', () => {
+  it('renders without crashing', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper).not.toBeNull();
   });
 
-  // Add a test to verify that the CourseList component is included
-  test("App renders the CourseList component when isLoggedIn is true", () => {
-    const wrapper = shallow(<App isLoggedIn={true} />);
-    expect(wrapper.find(CourseList).exists()).toBe(true);
-  });
-});
-describe("App Class", () => {
-  it("should call logOut function and display alert when Control and H keys are pressed", () => {
-    const mockLogOut = jest.fn();
-    const mockAlert = jest.spyOn(window, "alert");
-
-    const wrapper = shallow(<App logOut={mockLogOut} />);
-
-    const event = new KeyboardEvent("keydown", { ctrlKey: true, key: "h" });
-    wrapper.instance().handleKeyDown(event);
-    // document.dispatchEvent(event);
-
-    expect(mockLogOut).toHaveBeenCalled();
-    expect(mockAlert).toHaveBeenCalledWith("Logging you out");
+  it('renders the Notifications component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Notifications).length).toBe(1);
   });
 
-  afterEach(() => {
-    jest.restoreAllMocks();
+  it('renders the Header component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Header).length).toBe(1);
+  });
+
+  it('renders the Login component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Login).length).toBe(1);
+  });
+
+  it('renders the Footer component', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(Footer).length).toBe(1);
+  });
+
+  it('does not render the CourseList component when isLoggedIn is false', () => {
+    const wrapper = shallow(<App />);
+    expect(wrapper.find(CourseList).length).toBe(0);
+  });
+
+  describe('when isLoggedIn is true', () => {
+    it('does not render the Login component', () => {
+      const wrapper = shallow(<App isLoggedIn={true} />);
+      expect(wrapper.find(Login).length).toBe(0);
+    });
+
+    it('renders the CourseList component', () => {
+      const wrapper = shallow(<App isLoggedIn={true} />);
+      expect(wrapper.find(CourseList).length).toBe(1);
+    });
+  });
+
+  describe('when the keys control and h are pressed', () => {
+    let originalAlert;
+
+    beforeEach(() => {
+      const logOutMock = jest.fn();
+      const wrapper = shallow(<App logOut={logOutMock} />);
+      originalAlert = window.alert;
+    });
+
+    afterEach(() => {
+      window.alert = originalAlert;
+      jest.restoreAllMocks();
+    });
+
+    it('calls the logOut function', () => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' }));
+      expect(logOutMock).toHaveBeenCalled();
+    });
+
+    it('displays the alert message "Logging you out"', () => {
+      window.alert = jest.fn();
+      document.dispatchEvent(new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' }));
+      expect(window.alert).toHaveBeenCalledWith('Logging you out');
+    });
   });
 });

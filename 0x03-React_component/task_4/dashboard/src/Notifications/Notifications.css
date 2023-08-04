@@ -1,13 +1,25 @@
-.notitication{
-    border:2px;
-    padding:10px
-}
-/* Style for default priority items */
-li[data-priority="default"] {
-    color: blue;
+.menuItem {
+    text-align: right;
+    z-index: 1;
 }
 
-/* Style for urgent priority items */
-li[data-priority="urgent"] {
-    color: red;
+.Notifications {
+    padding: 0.5rem;
+    border: 1px dashed #e0354b;
+    position: absolute;
+    right: 1rem;
+    width: 25%;
+}
+
+.Notifications button img {
+    width: 10px;
+}
+
+[data-notification-type="default"] {
+    color: #0d0563;
+  }
+  
+[data-urgent],
+[data-notification-type="urgent"] {
+   color: #e0354b;
 }

@@ -1,14 +1,14 @@
 import React from 'react';
-import "./Header.css";
-// REmove the logo for checker to pass
-// import logo from "../assets/logo.jpg";
+import logo from '../assets/holberton-logo.jpg';
+import './Header.css';
+
 function Header() {
-  return (
-    <>
-      <img src="../assets/logo.jpg" className="App-logo" alt="logo" />
-      <h1>School dashboard</h1>
-    </>
-  );
-}
+    return (
+        <div className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1>School dashboard</h1>
+        </div>
+    )
+};
 
 export default Header;

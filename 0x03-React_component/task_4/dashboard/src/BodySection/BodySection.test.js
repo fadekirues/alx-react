@@ -1,25 +1,19 @@
 import React from "react";
-import Adapter from "enzyme-adapter-react-16";
-import { shallow, configure } from "enzyme";
-configure({ adapter: new Adapter() });
 import BodySection from "./BodySection";
+import { shallow } from "enzyme";
 
-describe("BodySection Component", () => {
-  it("should render correctly with the children and h2 element", () => {
-    const title = "test title";
-    const children = <p>test children node</p>;
+describe("BodySection tests", () => {
+  it("should render correctly", () => {
     const wrapper = shallow(
-      <BodySection title={title}>{children}</BodySection>
+      <BodySection title="test title">
+        <p>test children node</p>
+      </BodySection>
     );
 
-    // Check if the h2 element contains the correct title
-    const h2Element = wrapper.find("h2");
-    expect(h2Element.exists()).toBe(true);
-    expect(h2Element.text()).toBe(title);
-
-    // Check if the p element contains the correct children
-    const pElement = wrapper.find("p");
-    expect(pElement.exists()).toBe(true);
-    expect(pElement.text()).toBe("test children node");
+    expect(wrapper.exists()).toBe(true);
+    expect(wrapper.exists("h2")).toBe(true);
+    expect(wrapper.find("h2").html()).toEqual("<h2>test title</h2>");
+    expect(wrapper.exists("p")).toBe(true);
+    expect(wrapper.find("p").text()).toEqual("test children node");
   });
 });

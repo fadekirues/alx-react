@@ -1,15 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App/App";
-import reportWebVitals from "./reportWebVitals";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import App from './App/App';
 
-// Set isLoggedIn to true if the user is logged in, otherwise, keep it as false
-const isLoggedIn = false;
-const displayDrawer = false;
 
-ReactDOM.render(
-  <App isLoggedIn={isLoggedIn} displayDrawer={displayDrawer} />,
-  document.getElementById("root")
+const rootElement = document.getElementById('root');
+
+createRoot(rootElement).render(
+  <>
+    <App />
+  </>
 );
-
-reportWebVitals();
