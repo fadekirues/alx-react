@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CourseListRow Component should render a header row with correct inline styles 1`] = `"<tr class="headerRow_dswxah"><th class="cell_1kx8lar" colSpan="2">Available courses</th></tr>"`;
+
+exports[`CourseListRow Component should render a regular row with correct inline styles 1`] = `"<tr class="defaultRow_y7r86x"><td class="cell_1kx8lar">ES6</td><td class="cell_1kx8lar">60</td></tr>"`;

@@ -1,0 +1,13 @@
+.notitication{
+    border:2px;
+    padding:10px
+}
+/* Style for default priority items */
+li[data-priority="default"] {
+    color: blue;
+}
+
+/* Style for urgent priority items */
+li[data-priority="urgent"] {
+    color: red;
+}
